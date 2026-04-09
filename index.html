@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SAT - Consulta de Información</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #fdfaf5;
+            margin: 0;
+            padding: 10px;
+            color: #333;
+        }
+
+        .container {
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px solid #e0e0e0;
+            margin-bottom: 20px;
+            background: #fff;
+        }
+
+        .header img {
+            height: 45px;
+        }
+
+        .card {
+            background: #fff;
+            border: 1px solid #d4c19c;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            overflow: hidden;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .card-header {
+            background: #d4c19c;
+            color: #4a4a4a;
+            padding: 10px 15px;
+            font-weight: bold;
+            font-size: 1.1em;
+        }
+
+        .card-body {
+            padding: 15px;
+        }
+
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 12px;
+            font-size: 0.95em;
+        }
+
+        .label {
+            color: #666;
+            width: 45%;
+            text-align: right;
+            padding-right: 15px;
+        }
+
+        .value {
+            font-weight: bold;
+            width: 55%;
+            text-align: left;
+            text-transform: uppercase;
+        }
+
+        .alert-box {
+            background: #f8f1e5;
+            border: 1px solid #d4c19c;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            font-size: 0.9em;
+        }
+
+        .footer-date {
+            text-align: center;
+            font-size: 0.8em;
+            color: #888;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header">
+        <img src="https://omawww.sat.gob.mx/gobmx/assets/images/hacienda.png" alt="Hacienda">
+        <img src="https://omawww.sat.gob.mx/gobmx/assets/images/SAT_logo.png" alt="SAT">
+    </div>
+
+    <div class="alert-box">
+        El RFC: <strong id="displayRFC">HESS9910202I0</strong>, tiene asociada la siguiente información.
+    </div>
+
+    <div class="card">
+        <div class="card-header">Datos de Identificación</div>
+        <div class="card-body">
+            <div class="info-row">
+                <div class="label">CURP:</div>
+                <div class="value">HESS991020HJCRRMO3</div>
+            </div>
+            <div class="info-row">
+                <div class="label">Nombre:</div>
+                <div class="value">SAMUEL EZAU</div>
+            </div>
+            <div class="info-row">
+                <div class="label">Apellido Paterno:</div>
+                <div class="value">HERNANDEZ</div>
+            </div>
+            <div class="info-row">
+                <div class="label">Apellido Materno:</div>
+                <div class="value">SERRANO</div>
+            </div>
+            <div class="info-row">
+                <div class="label">Fecha Nacimiento:</div>
+                <div class="value">20-10-1999</div>
+            </div>
+            <div class="info-row">
+                <div class="label">Situación del contribuyente:</div>
+                <div class="value" style="color: green;">ACTIVO</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-header">Datos de Ubicación</div>
+        <div class="card-body">
+            <div class="info-row">
+                <div class="label">Entidad Federativa:</div>
+                <div class="value">NUEVO LEON</div>
+            </div>
+            <div class="info-row">
+                <div class="label">Municipio:</div>
+                <div class="value">MONTERREY</div>
+            </div>
+            <div class="info-row">
+                <div class="label">Colonia:</div>
+                <div class="value">TALLERES</div>
+            </div>
+            <div class="info-row">
+                <div class="label">Nombre de vialidad:</div>
+                <div class="value">EDISON NTE</div>
+            </div>
+            <div class="info-row">
+                <div class="label">Número exterior:</div>
+                <div class="value">1235</div>
+            </div>
+            <div class="info-row">
+                <div class="label">CP:</div>
+                <div class="value">64480</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-header">Características fiscales</div>
+        <div class="card-body">
+            <div class="info-row">
+                <div class="label">Régimen:</div>
+                <div class="value">Régimen de Sueldos y Salarios e Ingresos Asimilados a Salarios</div>
+            </div>
+            <div class="info-row">
+                <div class="label">Fecha de alta:</div>
+                <div class="value">20-02-2017</div>
+            </div>
+            <div class="info-row">
+                <div class="label">Último cambio de situación:</div>
+                <div class="value" id="fechaActual">--/--/----</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer-date">
+        Consulta realizada el <span id="fechaConsulta"></span>
+    </div>
+</div>
+
+<script>
+    function formatearFecha(fecha) {
+        const d = String(fecha.getDate()).padStart(2, '0');
+        const m = String(fecha.getMonth() + 1).padStart(2, '0');
+        const y = fecha.getFullYear();
+        return `${d}-${m}-${y}`;
+    }
+
+    const hoy = new Date();
+    // Ponemos la fecha actual en el campo de "Último cambio de situación" y en el pie de página
+    document.getElementById('fechaActual').innerText = formatearFecha(hoy);
+    document.getElementById('fechaConsulta').innerText = formatearFecha(hoy) + " " + hoy.toLocaleTimeString();
+</script>
+
+</body>
+</html>
